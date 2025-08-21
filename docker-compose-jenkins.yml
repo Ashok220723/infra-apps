@@ -5,14 +5,14 @@ services:
     image: jenkins/jenkins:lts
     container_name: jenkins
     restart: always
-    user: "1000:1000" # Use a consistent user ID to prevent permission issues
+    user: root
     ports:
       - "8080:8080" # Jenkins web UI
       - "50000:50000" # JNLP port for agents
     volumes:
       - jenkins_home:/var/jenkins_home
-    environment:
-      - JENKINS_OPTS=--prefix=/jenkins # Configure a prefix for the reverse proxy
+    # environment:
+    #   - JENKINS_OPTS=--prefix=/jenkins # Configure a prefix for the reverse proxy
     networks:
       - ci-cd-network
 
