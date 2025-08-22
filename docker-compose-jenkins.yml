@@ -7,12 +7,12 @@ services:
     restart: always
     user: root
     ports:
-      - "8080:8080" # Jenkins web UI
+      - "8080:8080"   # Jenkins web UI
       - "50000:50000" # JNLP port for agents
     volumes:
       - jenkins_home:/var/jenkins_home
-    # environment:
-    #   - JENKINS_OPTS=--prefix=/jenkins # Configure a prefix for the reverse proxy
+      # Mount Docker socket so Jenkins can talk to host Docker
+      - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - ci-cd-network
 
@@ -21,4 +21,4 @@ volumes:
 
 networks:
   ci-cd-network:
-    external: true # Use an existing, pre-created network
+    external: true
