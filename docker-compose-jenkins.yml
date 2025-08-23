@@ -2,16 +2,18 @@ version: '3.8'
 
 services:
   jenkins:
-    image: jenkins/jenkins:lts
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile.jenkins
+    image: vsiraparapu/jenkins:latest
     container_name: jenkins
     restart: always
     user: root
     ports:
-      - "8080:8080"   # Jenkins web UI
-      - "50000:50000" # JNLP port for agents
+      - "8080:8080"
+      - "50000:50000"
     volumes:
       - jenkins_home:/var/jenkins_home
-      # Mount Docker socket so Jenkins can talk to host Docker
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - ci-cd-network
