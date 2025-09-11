@@ -43,5 +43,17 @@ RUN curl -L "https://github.com/docker/compose/releases/latest/download/docker-c
     -o /usr/local/bin/docker-compose \
     && chmod +x /usr/local/bin/docker-compose
 
+
+# ----------------------------
+# Install Helm (latest via Buildkite repo)
+# ----------------------------
+RUN apt-get update && apt-get install -y curl gpg apt-transport-https \
+    && curl -fsSL https://packages.buildkite.com/helm-linux/helm-debian/gpgkey | gpg --dearmor | tee /usr/share/keyrings/helm.gpg > /dev/null \
+    && echo "deb [signed-by=/usr/share/keyrings/helm.gpg] https://packages.buildkite.com/helm-linux/helm-debian/any/ any main" \
+       | tee /etc/apt/sources.list.d/helm-stable-debian.list \
+    && apt-get update \
+    && apt-get install -y helm \
+    && rm -rf /var/lib/apt/lists/*
+
 # Switch back to Jenkins user
 USER jenkins
