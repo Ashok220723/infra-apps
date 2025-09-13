@@ -8,7 +8,4 @@ nodes:
       hostPort: 80
     - containerPort: 443
       hostPort: 443
-- role: control-plane
-- role: worker
-- role: worker
 - role: worker
